@@ -11,7 +11,7 @@ view: analytics_view {
       column: admission_raw {}
       column: discharge_raw {}
       column: min_origination_dates { field: denials_eom.min_origination_dates }
-      #column: most_recent_payment_raw { field: most_recent_pay.most_recent_payment_raw }
+      column: most_recent_payment_raw { field: most_recent_pay.most_recent_payment_raw }
 
       column: esl_level_1_desc { field: patient_esl_test.esl_level_1_desc }
       column: esl_level_2_desc { field: patient_esl_test.esl_level_2_desc }
@@ -67,6 +67,7 @@ view: analytics_view {
       raw,
       date,
       month,
+      quarter,
       year
     ]
     datatype: date
@@ -764,20 +765,20 @@ view: analytics_view {
 ######################
 
 ### How to Benchmark
-  parameter: bm_coid2 { view_label: "Z - BM Demo2" type: string default_value: "out" allowed_value: {label: "In" value: "in"} allowed_value: {label: "Out" value: "out"} }
-  dimension: bm_coid_value2 {hidden: yes view_label: "Z - BM Demo2" type: string sql: case when {% parameter bm_coid2 %} = 'out' then 'x' else coalesce(safe_cast(${coid} as string),'unknown_') end ;; }
+  parameter: bm_coid2 { view_label: "Z - BM Demo 2" type: string default_value: "out" allowed_value: {label: "In" value: "in"} allowed_value: {label: "Out" value: "out"} }
+  dimension: bm_coid_value2 {hidden: yes view_label: "Z - BM Demo 2" type: string sql: case when {% parameter bm_coid2 %} = 'out' then 'x' else coalesce(safe_cast(${coid} as string),'unknown_') end ;; }
 
-  parameter: bm_esl_level_1_desc2 { view_label: "Z - BM Demo2" type: string default_value: "out" allowed_value: {label: "In" value: "in"} allowed_value: {label: "Out" value: "out"} }
-  dimension: bm_esl_level_1_desc_value2 {hidden: yes view_label: "Z - BM Demo2" type: string sql: case when {% parameter bm_esl_level_1_desc2 %} = 'out' then 'x' else coalesce(safe_cast(${esl_level_1_desc} as string),'unknown_') end ;; }
+  parameter: bm_esl_level_1_desc2 { view_label: "Z - BM Demo 2" type: string default_value: "out" allowed_value: {label: "In" value: "in"} allowed_value: {label: "Out" value: "out"} }
+  dimension: bm_esl_level_1_desc_value2 {hidden: yes view_label: "Z - BM Demo 2" type: string sql: case when {% parameter bm_esl_level_1_desc2 %} = 'out' then 'x' else coalesce(safe_cast(${esl_level_1_desc} as string),'unknown_') end ;; }
 
-  parameter: bm_group_name2 { view_label: "Z - BM Demo2" type: string default_value: "out" allowed_value: {label: "In" value: "in"} allowed_value: {label: "Out" value: "out"} }
-  dimension: bm_group_name_value2 {hidden: yes view_label: "Z - BM Demo2" type: string sql: case when {% parameter bm_group_name2 %} = 'out' then 'x' else coalesce(safe_cast(${group_name} as string),'unknown_') end ;; }
+  parameter: bm_group_name2 { view_label: "Z - BM Demo 2" type: string default_value: "out" allowed_value: {label: "In" value: "in"} allowed_value: {label: "Out" value: "out"} }
+  dimension: bm_group_name_value2 {hidden: yes view_label: "Z - BM Demo 2" type: string sql: case when {% parameter bm_group_name2 %} = 'out' then 'x' else coalesce(safe_cast(${group_name} as string),'unknown_') end ;; }
 
-  parameter: bm_doctor_id2 { view_label: "Z - BM Demo2" type: string default_value: "out" allowed_value: {label: "In" value: "in"} allowed_value: {label: "Out" value: "out"} }
-  dimension: bm_doctor_id_value2 {hidden: yes view_label: "Z - BM Demo2" type: string sql: case when {% parameter bm_doctor_id2 %} = 'out' then 'x' else coalesce(safe_cast(${doctor_id} as string),'unknown_') end ;; }
+  parameter: bm_doctor_id2 { view_label: "Z - BM Demo 2" type: string default_value: "out" allowed_value: {label: "In" value: "in"} allowed_value: {label: "Out" value: "out"} }
+  dimension: bm_doctor_id_value2 {hidden: yes view_label: "Z - BM Demo 2" type: string sql: case when {% parameter bm_doctor_id2 %} = 'out' then 'x' else coalesce(safe_cast(${doctor_id} as string),'unknown_') end ;; }
 
   dimension: bm_combined2 {
-    view_label: "Z - BM Demo2"
+    view_label: "Z - BM Demo 2"
     type: string
     sql: ${bm_coid_value2} || '-' || ${bm_esl_level_1_desc_value2} || '-' || ${bm_group_name_value2} || '-' || ${bm_doctor_id_value2} ;;
   }
@@ -809,6 +810,7 @@ view: analytics_view {
       {% else %}                                                          ${facility_name}
       {% endif %}
     ;;
+    drill_fields: [facility_name, market_name, division_name, esl_level_2_desc, esl_level_3_desc, esl_level_4_desc]
   }
 
 ### Create filters
@@ -840,19 +842,37 @@ view: analytics_view {
   dimension: is_concurrent_denial {
     hidden: yes
     type: yesno
-    sql: ${first_denial_raw} is null ;;
+    sql: ${percent_paidback_dim} < 0.7 or ${percent_paidback_dim} > 1.3 or ${percent_paidback_dim} is null ;;
+  }
+
+  dimension: is_concurrent_denial_not {
+    hidden: yes
+    type: yesno
+    sql: ${percent_paidback_dim} BETWEEN 0.7 and 1.3 ;;
   }
 
   dimension: is_p2p {
     hidden: yes
     type: yesno
-    sql: ${percent_paidback_dim} BETWEEN 0.9 and 1.1 ;;
+    sql: ${days_to_get_paid} > 150 ;;
+  }
+
+  dimension: is_p2p_not {
+    hidden: yes
+    type: yesno
+    sql: ${days_to_get_paid} < 150 or ${days_to_get_paid} is null ;;
   }
 
   dimension: is_pdu {
     hidden: yes
     type: yesno
-    sql: ${days_between_denial_and_discharge} > 60 ;;
+    sql: ${first_denial_raw} is not null ;;
+  }
+
+  dimension: is_pdu_not {
+    hidden: yes
+    type: yesno
+    sql: ${first_denial_raw} is null ;;
   }
 
   dimension: is_concurrent_denial_with_param {
@@ -860,7 +880,7 @@ view: analytics_view {
     type: yesno
     sql:
       {% if is_concurrent_denial_param._parameter_value == 'yes' %} ${is_concurrent_denial}
-      {% else %} 1 = 0
+      {% else %} ${is_concurrent_denial_not}
       {% endif %}
     ;;
   }
@@ -870,7 +890,7 @@ view: analytics_view {
     type: yesno
     sql:
       {% if is_p2p_param._parameter_value == 'yes' %} ${is_p2p}
-      {% else %} 1 = 0
+      {% else %} ${is_p2p_not}
       {% endif %}
     ;;
   }
@@ -880,7 +900,7 @@ view: analytics_view {
     type: yesno
     sql:
       {% if is_pdu_param._parameter_value == 'yes' %} ${is_pdu}
-      {% else %} 1 = 0
+      {% else %} ${is_pdu_not}
       {% endif %}
     ;;
   }
@@ -891,13 +911,50 @@ view: analytics_view {
     sql: ${is_concurrent_denial_with_param} and ${is_p2p_with_param} and ${is_pdu_with_param} ;;
   }
 
+  parameter: status_param {
+    view_label: "Z - BM Demo 2"
+    type: unquoted
+    default_value: "1s"
+    allowed_value: {label: "1 - All Clear" value: "1s"}
+    allowed_value: {label: "2 - Conc Denial Only" value: "2s"}
+    allowed_value: {label: "3 - Conc Denial & P2P Only" value: "3s"}
+    allowed_value: {label: "4 - Conc, P2P, and PDU" value: "4s"}
+  }
+
+  dimension: status {
+    view_label: "Z - BM Demo 2"
+    type: string
+    sql:
+      case
+        when ${is_concurrent_denial_not} then '1 - All Clear'
+        when ${is_concurrent_denial} and ${is_p2p_not} then '2 - Conc Denial Only'
+        when ${is_concurrent_denial} and ${is_p2p} and ${is_pdu_not} then '3 - Conc Denial & P2P Only'
+        else '4 - Conc, P2P, and PDU'
+      end
+    ;;
+  }
+
+  dimension: is_status_with_param {
+    view_label: "Z - BM Demo 2"
+    hidden: yes
+    type: yesno
+    sql:
+      {% if status_param._parameter_value == '1s' %}    ${status} = '1 - All Clear'
+      {% elsif status_param._parameter_value == '2s' %} ${status} = '2 - Conc Denial Only'
+      {% elsif status_param._parameter_value == '3s' %} ${status} = '3 - Conc Denial & P2P Only'
+      {% elsif status_param._parameter_value == '4s' %} ${status} = '4 - Conc, P2P, and PDU'
+      {% else %}                                        ${status} = '1 - All Clear'
+      {% endif %}
+    ;;
+  }
+
 ### Create initial KPIs
 
   measure: count_in_filtered_group {
     view_label: "Z - BM Demo 2"
     group_label: "Initial KPI"
     type: count
-    filters: [is_in_filtered_group: "Yes"]
+    filters: [is_status_with_param: "Yes"]
   }
 
   measure: sum_owed_in_filtered_group {
@@ -905,7 +962,7 @@ view: analytics_view {
     group_label: "Initial KPI"
     type: sum
     sql: ${total_owed} ;;
-    filters: [is_in_filtered_group: "Yes"]
+    filters: [is_status_with_param: "Yes"]
     value_format_name: usd_0
   }
 
@@ -934,9 +991,23 @@ view: analytics_view {
     allowed_value: {label: "Cost" value: "cost"}
   }
 
+  measure: bm_kpi_actual2_raw {
+    view_label: "Z - BM Demo 2"
+    label: "0 - Actual (Raw)"
+    type: number
+    sql:
+      {% if    count_vs_cost_bm2._parameter_value == 'count' %} ${count}
+      {% elsif count_vs_cost_bm2._parameter_value == 'cost' %} ${sum_owed}
+      {% else %} ${count}
+      {% endif %}
+    ;;
+    value_format_name: decimal_1
+    drill_fields: [cv_drill*]
+  }
+
   measure: bm_kpi_actual2 {
     view_label: "Z - BM Demo 2"
-    label: "KPI Selection"
+    label: "1 - Actual"
     type: number
     sql:
       {% if    count_vs_cost_bm2._parameter_value == 'count' %} ${count_in_filtered_group_percent}
@@ -944,6 +1015,44 @@ view: analytics_view {
       {% else %} ${count_in_filtered_group_percent}
       {% endif %}
     ;;
+    value_format_name: percent_1
+    drill_fields: [cv_drill*]
+  }
+
+### Expected
+
+  dimension: bm_kpi_expected_dim2 {
+    view_label: "Z - BM Demo 2"
+    type: number
+    sql: ${benchmark_table2.bm_kpi_expected2} ;;
+  }
+
+  measure: bm_kpi_expected2 {
+    view_label: "Z - BM Demo 2"
+    label: "2 - Expected"
+    type: average
+    sql: ${bm_kpi_expected_dim2} ;;
+    value_format_name: percent_1
+    drill_fields: [cv_drill*]
+  }
+
+
+## Step 5: Calculate abs & percent difference
+
+  measure: bm_kpi_actual_vs_expected_abs2 {
+    view_label: "Z - BM Demo 2"
+    label: "3 - Act vs Exp (Abs)"
+    type: number
+    sql: ${bm_kpi_actual2} - ${bm_kpi_expected2} ;;
+    value_format_name: percent_1
+    drill_fields: [cv_drill*]
+  }
+
+  measure: bm_kpi_actual_vs_expected_perc2 {
+    view_label: "Z - BM Demo 2"
+    label: "4 - Act vs Exp (%)"
+    type: number
+    sql: ${bm_kpi_actual_vs_expected_abs2} / nullif(${bm_kpi_actual2},0) ;;
     value_format_name: percent_1
     drill_fields: [cv_drill*]
   }

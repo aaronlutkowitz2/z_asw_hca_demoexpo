@@ -63,10 +63,10 @@ explore: fact_patient_test {
     sql_on: ${fact_patient_test.coid} = ${facility_dim.facility_id} ;;
   }
 
-  # join: most_recent_pay {
-  #   relationship: many_to_one
-  #   sql_on: ${fact_patient_test.patient_dw_id} = ${most_recent_pay.patient_dw_id} ;;
-  # }
+  join: most_recent_pay {
+    relationship: many_to_one
+    sql_on: ${fact_patient_test.patient_dw_id} = ${most_recent_pay.patient_dw_id} ;;
+  }
 }
 
 explore: patient_esl_test { hidden: yes }
