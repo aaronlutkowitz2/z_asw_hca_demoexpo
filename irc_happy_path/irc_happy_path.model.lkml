@@ -3,7 +3,7 @@ connection: "z_asw_argolis"
 include: "/irc_happy_path/*.view.lkml"                # include all views in the views/ folder in this project
 # include: "/**/*.view.lkml"                 # include all views in this project
 # include: "my_dashboard.dashboard.lookml"   # include a LookML dashboard called my_dashboard
-# include: "*.dashboard.lookml"   # include a LookML dashboard called my_dashboard
+include: "*.dashboard.lookml"   # include a LookML dashboard called my_dashboard
 
 datagroup: irc_poc_data_group {
   max_cache_age: "24 hours"
