@@ -1109,6 +1109,149 @@ view: benchmark_table2 {
   }
 }
 
+view: newui_kpi_list {
+
+  derived_table: {
+    datagroup_trigger: once_daily
+    sql:
+    SELECT 'KPI 1' AS anomaly_name,1 AS datapoint,0.4143508771 AS threshold_over UNION ALL
+    SELECT 'KPI 2',2,0.4097222824 UNION ALL
+    SELECT 'KPI 3',3,0.3691764848 UNION ALL
+    SELECT 'KPI 4',4,0.1964271376 UNION ALL
+    SELECT 'KPI 5',4,0.1964271376 UNION ALL
+    SELECT 'KPI 6',4,0.1964271376 UNION ALL
+    SELECT 'KPI 7',4,0.1964271376 UNION ALL
+    SELECT 'KPI 8',4,0.1964271376
+  ;;
+  }
+
+}
+
+view: newui_anomaly {
+  dimension: anomaly_name {
+    type: string
+  }
+  dimension: datapoint {
+    type: number
+  }
+  dimension: threshold_over {
+    type: number
+  }
+  parameter: over_threshold {
+    type: number
+    default_value: "25"
+  }
+  dimension: is_over_threshold {
+    type: yesno
+    sql: ${threshold_over} * 100 > {% parameter ${over_threshold} %}  ;;
+  }
+  measure: count_over_threshold {
+    type: count
+    filters: [is_over_threshold: "yes"]
+  }
+  measure: count {
+    type: count
+  }
+  measure: percent_over_threshold {
+    type: number
+    sql: ${count_over_threshold} / nullif(${count},0) ;;
+    value_format_name: percent_1
+  }
+  measure: threshold_value {
+    type: average
+    sql: ${datapoint} * 100 * rand() ;;
+  }
+
+  derived_table: {
+    datagroup_trigger: once_daily
+    sql:
+SELECT 'Anamoly 1' AS anomaly_name,1 AS datapoint,0.4143508771 AS threshold_over UNION ALL
+SELECT 'Anamoly 1',2,0.4097222824 UNION ALL
+SELECT 'Anamoly 1',3,0.3691764848 UNION ALL
+SELECT 'Anamoly 1',4,0.1964271376 UNION ALL
+SELECT 'Anamoly 1',5,0.3022145061 UNION ALL
+SELECT 'Anamoly 1',6,0.07376454185 UNION ALL
+SELECT 'Anamoly 1',7,0.324297329 UNION ALL
+SELECT 'Anamoly 1',8,0.1846505073 UNION ALL
+SELECT 'Anamoly 1',9,0.354744215 UNION ALL
+SELECT 'Anamoly 2',1,0.348164285 UNION ALL
+SELECT 'Anamoly 2',2,0.1560391589 UNION ALL
+SELECT 'Anamoly 2',3,0.1401565774 UNION ALL
+SELECT 'Anamoly 2',4,0.1674346844 UNION ALL
+SELECT 'Anamoly 2',5,0.3165840461 UNION ALL
+SELECT 'Anamoly 2',6,0.08143650064 UNION ALL
+SELECT 'Anamoly 2',7,0.2600543725 UNION ALL
+SELECT 'Anamoly 2',8,0.3333047026 UNION ALL
+SELECT 'Anamoly 2',9,0.3087028734 UNION ALL
+SELECT 'Anamoly 3',1,0.06822077733 UNION ALL
+SELECT 'Anamoly 3',2,0.1297041271 UNION ALL
+SELECT 'Anamoly 3',3,0.1889199004 UNION ALL
+SELECT 'Anamoly 3',4,0.2813022736 UNION ALL
+SELECT 'Anamoly 3',5,0.2663980594 UNION ALL
+SELECT 'Anamoly 3',6,0.0815074301 UNION ALL
+SELECT 'Anamoly 3',7,0.357010984 UNION ALL
+SELECT 'Anamoly 3',8,0.008453644544 UNION ALL
+SELECT 'Anamoly 3',9,0.0673450375 UNION ALL
+SELECT 'Anamoly 4',1,0.2205109588 UNION ALL
+SELECT 'Anamoly 4',2,0.09137042108 UNION ALL
+SELECT 'Anamoly 4',3,0.1952565519 UNION ALL
+SELECT 'Anamoly 4',4,0.2770252847 UNION ALL
+SELECT 'Anamoly 4',5,0.2894209005 UNION ALL
+SELECT 'Anamoly 4',6,0.02288241553 UNION ALL
+SELECT 'Anamoly 4',7,0.2856230942 UNION ALL
+SELECT 'Anamoly 4',8,0.003312837422 UNION ALL
+SELECT 'Anamoly 4',9,0.02341604156 UNION ALL
+SELECT 'Anamoly 5',1,0.09629355013 UNION ALL
+SELECT 'Anamoly 5',2,0.2729277831 UNION ALL
+SELECT 'Anamoly 5',3,0.06097046906 UNION ALL
+SELECT 'Anamoly 5',4,0.08553731221 UNION ALL
+SELECT 'Anamoly 5',5,0.290103016 UNION ALL
+SELECT 'Anamoly 5',6,0.3596049868 UNION ALL
+SELECT 'Anamoly 5',7,0.2656976672 UNION ALL
+SELECT 'Anamoly 5',8,0.0212987961 UNION ALL
+SELECT 'Anamoly 5',9,0.01723064991 UNION ALL
+SELECT 'Anamoly 6',1,0.227006964 UNION ALL
+SELECT 'Anamoly 6',2,0.1606214298 UNION ALL
+SELECT 'Anamoly 6',3,0.0149811936 UNION ALL
+SELECT 'Anamoly 6',4,0.2566489317 UNION ALL
+SELECT 'Anamoly 6',5,0.1575976541 UNION ALL
+SELECT 'Anamoly 6',6,0.07381480787 UNION ALL
+SELECT 'Anamoly 6',7,0.1098811988 UNION ALL
+SELECT 'Anamoly 6',8,0.2721160406 UNION ALL
+SELECT 'Anamoly 6',9,0.2258294349 UNION ALL
+SELECT 'Anamoly 7',1,0.3391776086 UNION ALL
+SELECT 'Anamoly 7',2,0.3869193733 UNION ALL
+SELECT 'Anamoly 7',3,0.3354327281 UNION ALL
+SELECT 'Anamoly 7',4,0.08375080616 UNION ALL
+SELECT 'Anamoly 7',5,0.2147089737 UNION ALL
+SELECT 'Anamoly 7',6,0.127656707 UNION ALL
+SELECT 'Anamoly 7',7,0.2067207284 UNION ALL
+SELECT 'Anamoly 7',8,0.0761817897 UNION ALL
+SELECT 'Anamoly 7',9,0.3323336645 UNION ALL
+SELECT 'Anamoly 8',1,0.377627291 UNION ALL
+SELECT 'Anamoly 8',2,0.427159918 UNION ALL
+SELECT 'Anamoly 8',3,0.4714067775 UNION ALL
+SELECT 'Anamoly 8',4,0.04641232914 UNION ALL
+SELECT 'Anamoly 8',5,0.5033180568 UNION ALL
+SELECT 'Anamoly 8',6,0.2748983386 UNION ALL
+SELECT 'Anamoly 8',7,0.1939822982 UNION ALL
+SELECT 'Anamoly 8',8,0.5004242905 UNION ALL
+SELECT 'Anamoly 8',9,0.2904605557 UNION ALL
+SELECT 'Anamoly 9',1,0.5037734436 UNION ALL
+SELECT 'Anamoly 9',2,0.6247034706 UNION ALL
+SELECT 'Anamoly 9',3,0.5654630609 UNION ALL
+SELECT 'Anamoly 9',4,0.1029330791 UNION ALL
+SELECT 'Anamoly 9',5,0.244818278 UNION ALL
+SELECT 'Anamoly 9',6,0.4679731205 UNION ALL
+SELECT 'Anamoly 9',7,0.5639424622 UNION ALL
+SELECT 'Anamoly 9',8,0.4781387975 UNION ALL
+SELECT 'Anamoly 9',9,0.4212911128
+
+    ;;
+  }
+
+
+}
 
 # view: test_x_list {
 #   derived_table: {
