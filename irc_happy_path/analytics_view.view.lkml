@@ -1109,33 +1109,88 @@ view: benchmark_table2 {
   }
 }
 
-view: newui_kpi_list {
+view: new_ui_kpi_list {
+
+  parameter: persona {
+    type: string
+    default_value: "URS"
+    allowed_value: {label: "URS" value: "URS"}
+    allowed_value: {label: "Appeals" value: "Appeals"}
+    allowed_value: {label: "Billing" value: "Billing"}
+  }
+
+  parameter: benchmark {
+    type: string
+    default_value: "vs_yesterday"
+    allowed_value: {label: "Vs Yesterday" value: "vs_yesterday"}
+    allowed_value: {label: "Vs Last Week" value: "vs_last_week"}
+    allowed_value: {label: "Vs Last Month" value: "vs_last_month"}
+    allowed_value: {label: "Vs Last Year" value: "vs_last_year"}
+    allowed_value: {label: "Vs Similar Hospitals Today" value: "vs_sim_hosp_today"}
+  }
+
+  dimension: kpi_name {
+    type: string
+    sql: {% parameter ${persona} %} || ' ' || ${TABLE}.kpi_name  ;;
+    link: {
+      label: "KPI Deep Dive"
+      url: "/dashboards/1450"
+      icon_url: "http://www.google.com/s2/favicons?domain=www.looker.com"
+    }
+  }
+
+  dimension: value {
+    type: string
+  }
+
+  dimension: vs_benchmark {
+    type: number
+    sql: ${TABLE}.vs_benchmark * (length({% parameter ${benchmark} %}) / length({% parameter ${benchmark} %}));;
+  }
+
+  measure: avg_vs_benchmark {
+    type: average
+    sql: ${vs_benchmark} * (1 + rand()/2) ;;
+    value_format_name: percent_1
+  }
+
+  measure: average_value {
+    type: average
+    sql: cast(REPLACE(REPLACE(REPLACE(${value}, '%', ''),'$',''),',','') as float64) ;;
+  }
 
   derived_table: {
     datagroup_trigger: once_daily
     sql:
-    SELECT 'KPI 1' AS anomaly_name,1 AS datapoint,0.4143508771 AS threshold_over UNION ALL
-    SELECT 'KPI 2',2,0.4097222824 UNION ALL
-    SELECT 'KPI 3',3,0.3691764848 UNION ALL
-    SELECT 'KPI 4',4,0.1964271376 UNION ALL
-    SELECT 'KPI 5',4,0.1964271376 UNION ALL
-    SELECT 'KPI 6',4,0.1964271376 UNION ALL
-    SELECT 'KPI 7',4,0.1964271376 UNION ALL
-    SELECT 'KPI 8',4,0.1964271376
+    SELECT 'KPI 1' AS kpi_name,'60%' AS value,-0.21 AS vs_benchmark UNION ALL
+    SELECT 'KPI 2','$1,102',0.19 UNION ALL
+    SELECT 'KPI 3','30%',-0.52 UNION ALL
+    SELECT 'KPI 4','92%',0.39 UNION ALL
+    SELECT 'KPI 5','$192',-0.15 UNION ALL
+    SELECT 'KPI 6','10%',-0.03 UNION ALL
+    SELECT 'KPI 7','2%',-0.07 UNION ALL
+    SELECT 'KPI 8','1,700,282',0.02
   ;;
   }
 
 }
 
-view: newui_anomaly {
+view: new_ui_anomaly {
   dimension: anomaly_name {
     type: string
+    sql: {% parameter ${new_ui_kpi_list.persona} %} || ' ' || ${TABLE}.anomaly_name  ;;
+    link: {
+      label: "Anomaly Deep Dive"
+      url: "/dashboards/1450"
+      icon_url: "http://www.google.com/s2/favicons?domain=www.looker.com"
+    }
   }
   dimension: datapoint {
     type: number
   }
   dimension: threshold_over {
     type: number
+    sql: ${TABLE}.threshold_over * ${datapoint} * (cast(right(${anomaly_name},1) as float64) * rand()) / 40  ;;
   }
   parameter: over_threshold {
     type: number
@@ -1159,7 +1214,8 @@ view: newui_anomaly {
   }
   measure: threshold_value {
     type: average
-    sql: ${datapoint} * 100 * rand() ;;
+    sql: ${datapoint} * cast(right(${anomaly_name},1) as float64) * rand() / 20 ;;
+    value_format_name: percent_1
   }
 
   derived_table: {
