@@ -109,7 +109,7 @@ view: histories {
     sql_longitude: ${long} ;;
   }
   dimension: coid {
-    group_label: "Hierarchy Facility"
+    # group_label: "Hierarchy Facility"
     label: "5b COID"
     type: number
     value_format_name: id
