@@ -386,11 +386,11 @@ view: histories {
 
   measure: BC_ICU_Occupancy_pct{ description: "Percent of ICU beds that are currently occupied." label: "ICU Occupancy %" type: average sql: ${value} ;; filters: [metriccode: "BC_ICU_Occupancy_pct"] value_format_name: decimal_2 drill_fields: [detail*]}
 
-  measure: ER_Wait_Minutes{ description: "Current average of ER wait time for today" label: "ER Average Wait Time in Minutes (Today)" type: average sql: ${value} ;; filters: [metriccode: "ER_Wait_Minutes"] value_format_name: percent_2 drill_fields: [detail*]}
+  measure: ER_Wait_Minutes{ description: "Current average of ER wait time for today" label: "ER Average Wait Time in Minutes (Today)" type: average sql: ${value} ;; filters: [metriccode: "ER_Wait_Minutes"] value_format_name: decimal_2 drill_fields: [detail*]}
 
-  measure: ER_LOS_Minutes{ description: "Current average ER length of stay for today" label: "ER Average Length of Stay in Minutes (Today)" type: average sql: ${value} ;; filters: [metriccode: "ER_LOS_Minutes"] value_format_name: percent_2 drill_fields: [detail*]}
+  measure: ER_LOS_Minutes{ description: "Current average ER length of stay for today" label: "ER Average Length of Stay in Minutes (Today)" type: average sql: ${value} ;; filters: [metriccode: "ER_LOS_Minutes"] value_format_name: decimal_2 drill_fields: [detail*]}
 
-  measure: ER_Wait_Minutes_4Hour_Avg{ description: "Current average of ER wait time for last 4 hours" label: "ER Average Wait Time in Minutes (4hr| rolling average)" type: average sql: ${value} ;; filters: [metriccode: "ER_Wait_Minutes_4Hour_Avg"] value_format_name: percent_2 drill_fields: [detail*]}
+  measure: ER_Wait_Minutes_4Hour_Avg{ description: "Current average of ER wait time for last 4 hours" label: "ER Average Wait Time in Minutes (4hr| rolling average)" type: average sql: ${value} ;; filters: [metriccode: "ER_Wait_Minutes_4Hour_Avg"] value_format_name: decimal_2 drill_fields: [detail*]}
 
   # ----- Sets of fields for drilling ------
   set: detail {
