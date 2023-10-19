@@ -103,7 +103,7 @@ view: histories {
     type: number
   }
   dimension: location {
-    group_label: "Hierarchy Facility"
+    # group_label: "Hierarchy Facility"
     type: location
     sql_latitude: ${lat} ;;
     sql_longitude: ${long} ;;
@@ -112,7 +112,7 @@ view: histories {
     # group_label: "Hierarchy Facility"
     label: "5b COID"
     type: number
-    value_format_name: id
+    # value_format_name: id
     sql: ${TABLE}.coid ;;
   }
 
