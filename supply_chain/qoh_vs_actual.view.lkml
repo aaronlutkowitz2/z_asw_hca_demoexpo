@@ -50,8 +50,9 @@ view: qoh_vs_actual {
 ### Measures
 #######################
 
-  measure: count {
+  measure: count_inv_changes {
     type: count
+    filters: [coid_fac_dept_par_id: "not null"]
   }
 }
 

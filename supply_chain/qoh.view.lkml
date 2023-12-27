@@ -175,7 +175,7 @@ view: qoh {
   dimension: req_avg_qty {
     hidden: yes
     type: number
-    sql: coalesce(${req_issued_qty},0) + coalesce(${req_recieved_qty},0) / 2 ;;
+    sql: (${req_issued_qty} + ${req_recieved_qty}) / 2 ;;
     value_format_name: decimal_1
   }
 
@@ -241,33 +241,82 @@ view: qoh {
   }
 
   measure: total_req {
-    label: "1 Req"
+    label: "1a Total Req"
     type: sum
     sql: ${req_qty} ;;
   }
 
+  measure: total_avg_req {
+    label: "1b Avg Req"
+    type: average
+    sql: ${req_qty} ;;
+    value_format_name: decimal_1
+  }
+
   measure: total_used {
-    label: "2 Used"
+    label: "2a Total Used"
     type: sum
     sql: ${usd_qty} ;;
   }
 
+  measure: total_avg_used {
+    label: "2b Avg Used"
+    type: average
+    sql: ${usd_qty} ;;
+    value_format_name: decimal_1
+  }
+
   measure: total_req_min_used {
-    label: "3 Req - Used"
+    label: "3a Total Req - Used"
     type: number
     sql: ${total_req} - ${total_used} ;;
   }
 
+  measure: total_avg_req_min_used {
+    label: "3b Avg Req - Used"
+    type: number
+    sql: ${total_avg_req} - ${total_avg_used} ;;
+    value_format_name: decimal_1
+  }
+
+  measure: perc_req_used_to_used {
+    label: "3c % Req - Used of Total"
+    type: number
+    sql: ${total_avg_req_min_used} / nullif(coalesce(${total_avg_used}, ${total_avg_req}),0) ;;
+    value_format_name: percent_1
+  }
+
   measure: total_inv {
-    label: "4 Inv"
+    label: "4a Total Inv"
     type: sum
     sql: ${reported_inv} ;;
   }
 
+  measure: total_avg_inv {
+    label: "4b Avg Inv"
+    type: average
+    sql: ${reported_inv} ;;
+    value_format_name: decimal_1
+  }
+
   measure: total_qoh_since_last_inv_change {
-    label: "5 QOH Since Last Inv"
+    label: "5a Total QOH"
     type: sum
     sql: ${qoh_since_last_inv} ;;
+  }
+
+  measure: total_avg_since_last_inv_change {
+    label: "5b Avg QOH"
+    type: average
+    sql: ${qoh_since_last_inv} ;;
+    value_format_name: decimal_1
+  }
+
+  measure: avg_est_prior_month {
+    label: "99 Avg Estimate (from Prior Month)"
+    type: average
+    sql: ${qoh_esimate} ;;
+    value_format_name: decimal_1
   }
 
   measure: avg_error {
@@ -278,7 +327,7 @@ view: qoh {
   }
 
   measure: avg_abs_error {
-    label: "6 Avg Abs Error"
+    label: "7 Avg Abs Error"
     type: average
     sql: abs(${diff_estimate}) ;;
     value_format_name: decimal_1
@@ -292,7 +341,7 @@ view: qoh {
   }
 
   measure: perc_error {
-    label: "7 Avg % Error"
+    label: "8 Avg % Error"
     type: number
     sql: ${avg_abs_error} / nullif(${avg_inventory},0) ;;
     value_format_name: percent_1
