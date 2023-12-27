@@ -179,6 +179,13 @@ view: qoh {
     value_format_name: decimal_1
   }
 
+  dimension: facility_item_desc_short {
+    group_label: "Info"
+    label: "Item Desc"
+    type: string
+    sql: left(${facility_item_desc},15) ;;
+  }
+
   parameter: req_type {
     type: unquoted
     default_value: "avg"
