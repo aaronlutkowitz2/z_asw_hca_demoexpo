@@ -349,14 +349,14 @@ view: qoh {
   }
 
   measure: avg_error {
-    label: "8 Avg Error"
+    label: "8a Avg Error"
     type: average
     sql: ${diff_estimate} ;;
     value_format_name: decimal_1
   }
 
   measure: avg_abs_error {
-    label: "9 Avg Abs Error"
+    label: "8b Avg Abs Error"
     type: average
     sql: abs(${diff_estimate}) ;;
     value_format_name: decimal_1
@@ -370,7 +370,7 @@ view: qoh {
   }
 
   measure: perc_error {
-    label: "10 Avg % Error"
+    label: "8c Avg % Error"
     type: number
     sql: ${avg_abs_error} / nullif(${avg_inventory},0) ;;
     value_format_name: percent_1
