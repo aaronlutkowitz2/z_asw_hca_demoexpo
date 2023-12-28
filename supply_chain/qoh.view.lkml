@@ -309,34 +309,54 @@ view: qoh {
   measure: total_qoh_since_last_inv_change {
     label: "5a Total QOH"
     type: sum
-    sql: ${qoh_vs_actual.qoh_req_avg_estimate} ;;
-    # sql: ${qoh_since_last_inv} ;;
+    # sql: ${qoh_vs_actual.qoh_req_avg_estimate} ;;
+    sql: ${qoh_since_last_inv} ;;
   }
 
   measure: total_avg_since_last_inv_change {
     label: "5b Avg QOH"
     type: average
-    sql: ${qoh_vs_actual.qoh_req_avg_estimate} ;;
-    # sql: ${qoh_since_last_inv} ;;
+    # sql: ${qoh_vs_actual.qoh_req_avg_estimate} ;;
+    sql: ${qoh_since_last_inv} ;;
+    value_format_name: decimal_1
+  }
+
+  measure: total_inv_actual {
+    label: "6a Total Known Inv (Actual)"
+    type: sum
+    sql: case when ${qoh_vs_actual.coid_fac_dept_par_id} is null then null else ${reported_inv} end ;;
+  }
+
+  measure: total_avg_inv_actual {
+    label: "6b Avg Known Inv (Actual)"
+    type: average
+    sql: case when ${qoh_vs_actual.coid_fac_dept_par_id} is null then null else ${reported_inv} end ;;
+    value_format_name: decimal_1
+  }
+
+  measure: total_est_prior_month {
+    label: "7a Sum Known Inv (Estimate)"
+    type: sum
+    sql: ${qoh_esimate} ;;
     value_format_name: decimal_1
   }
 
   measure: avg_est_prior_month {
-    label: "99 Avg Estimate (from Prior Month)"
+    label: "7b Avg Known Inv (Estimate)"
     type: average
     sql: ${qoh_esimate} ;;
     value_format_name: decimal_1
   }
 
   measure: avg_error {
-    label: "6 Avg Error"
+    label: "8 Avg Error"
     type: average
     sql: ${diff_estimate} ;;
     value_format_name: decimal_1
   }
 
   measure: avg_abs_error {
-    label: "7 Avg Abs Error"
+    label: "9 Avg Abs Error"
     type: average
     sql: abs(${diff_estimate}) ;;
     value_format_name: decimal_1
@@ -350,7 +370,7 @@ view: qoh {
   }
 
   measure: perc_error {
-    label: "8 Avg % Error"
+    label: "10 Avg % Error"
     type: number
     sql: ${avg_abs_error} / nullif(${avg_inventory},0) ;;
     value_format_name: percent_1
