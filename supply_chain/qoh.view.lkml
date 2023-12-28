@@ -309,13 +309,15 @@ view: qoh {
   measure: total_qoh_since_last_inv_change {
     label: "5a Total QOH"
     type: sum
-    sql: ${qoh_since_last_inv} ;;
+    sql: ${qoh_vs_actual.qoh_req_avg_estimate} ;;
+    # sql: ${qoh_since_last_inv} ;;
   }
 
   measure: total_avg_since_last_inv_change {
     label: "5b Avg QOH"
     type: average
-    sql: ${qoh_since_last_inv} ;;
+    sql: ${qoh_vs_actual.qoh_req_avg_estimate} ;;
+    # sql: ${qoh_since_last_inv} ;;
     value_format_name: decimal_1
   }
 
