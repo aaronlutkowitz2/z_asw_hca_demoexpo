@@ -13,7 +13,7 @@ view: item_filter {
       }
       filters: {
         field: qoh.perc_error_abs
-        value: "<0.5"
+        value: "<0.25"
       }
     }
   }
