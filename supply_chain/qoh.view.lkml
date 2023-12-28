@@ -372,7 +372,14 @@ view: qoh {
   measure: perc_error {
     label: "8c Avg % Error"
     type: number
-    sql: ${avg_abs_error} / nullif(${avg_inventory},0) ;;
+    sql: ${avg_error} / nullif(${avg_inventory},0) ;;
+    value_format_name: percent_1
+  }
+
+  measure: perc_error_abs {
+    label: "8d Avg % Error (Abs)"
+    type: number
+    sql: abs(${perc_error}) ;;
     value_format_name: percent_1
   }
 }

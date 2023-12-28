@@ -15,9 +15,8 @@ explore: qoh {
     ;;
   }
 
-  join: accuracy_filter {
+  join: item_filter {
     relationship: many_to_one
-    # sql_on: ${qoh.coid_fac_dept_par_id} = ${accuracy_filter.col_val} ;;
-    sql_on: ${qoh.facility_item_num} = ${accuracy_filter.col_val} ;;
+    sql_on: ${qoh.facility_item_num} = ${item_filter.facility_item_num} ;;
   }
 }
