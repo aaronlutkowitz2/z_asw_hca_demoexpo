@@ -154,217 +154,6 @@
     col: 12
     width: 12
     height: 10
-  - title: Example
-    name: Example
-    model: supply_chain_qoh
-    explore: qoh
-    type: looker_grid
-    fields: [qoh.reporting_month, qoh.coid_fac_dept_par_id, qoh.coid, qoh.facility_item_desc_short,
-      qoh.facility_item_desc, qoh.facility_name, qoh.dept_num, qoh.par_class_code,
-      qoh.total_req, qoh.total_used, qoh.total_req_min_used, qoh.total_inv, qoh.total_qoh_since_last_inv_change,
-      qoh.total_est_prior_month, qoh.avg_error, qoh.perc_error]
-    filters:
-      qoh.coid_fac_dept_par_id: '1239'
-    sorts: [qoh.reporting_month]
-    limit: 500
-    column_limit: 50
-    show_view_names: false
-    show_row_numbers: true
-    transpose: false
-    truncate_text: true
-    hide_totals: false
-    hide_row_totals: false
-    size_to_fit: true
-    table_theme: white
-    limit_displayed_rows: false
-    enable_conditional_formatting: true
-    header_text_alignment: left
-    header_font_size: '12'
-    rows_font_size: '12'
-    conditional_formatting_include_totals: false
-    conditional_formatting_include_nulls: false
-    show_sql_query_menu_options: false
-    show_totals: true
-    show_row_totals: true
-    truncate_header: false
-    minimum_column_width: 75
-    series_cell_visualizations:
-      qoh.total_req:
-        is_active: false
-    conditional_formatting: [{type: along a scale..., value: !!null '', background_color: "#4285F4",
-        font_color: !!null '', color_application: {collection_id: google, custom: {
-            id: 698f98c0-bf1e-f7de-a6d8-46e015235219, label: Custom, type: continuous,
-            stops: [{color: "#B31412", offset: 0}, {color: yellow, offset: 25}, {
-                color: green, offset: 50}, {color: yellow, offset: 75}, {color: "#B31412",
-                offset: 100}]}, options: {steps: 5, constraints: {min: {type: number,
-                value: -0.5}, mid: {type: number, value: 0}, max: {type: number, value: 0.5}},
-            mirror: false, reverse: false, stepped: false}}, bold: false, italic: false,
-        strikethrough: false, fields: [qoh.perc_error]}, {type: along a scale...,
-        value: !!null '', background_color: "#4285F4", font_color: !!null '', color_application: {
-          collection_id: google, palette_id: google-diverging-0, options: {constraints: {
-              min: {type: minimum}, mid: {type: number, value: 0}, max: {type: maximum}},
-            mirror: true, reverse: false, stepped: false}}, bold: false, italic: false,
-        strikethrough: false, fields: [qoh.total_req_min_used, qoh.total_req, qoh.total_used]},
-      {type: along a scale..., value: !!null '', background_color: "#4285F4", font_color: !!null '',
-        color_application: {collection_id: google, custom: {id: 626e7d54-6eb5-b33f-8204-e31d73157d3f,
-            label: Custom, type: continuous, stops: [{color: "#ffffff", offset: 0},
-              {color: purple, offset: 100}]}, options: {steps: 5, constraints: {min: {
-                type: minimum}, mid: {type: number, value: 0}, max: {type: maximum}},
-            mirror: true, reverse: false, stepped: false}}, bold: false, italic: false,
-        strikethrough: false, fields: [qoh.total_inv, qoh.total_qoh_since_last_inv_change]}]
-    x_axis_gridlines: false
-    y_axis_gridlines: true
-    show_y_axis_labels: true
-    show_y_axis_ticks: true
-    y_axis_tick_density: default
-    y_axis_tick_density_custom: 5
-    show_x_axis_label: true
-    show_x_axis_ticks: true
-    y_axis_scale_mode: linear
-    x_axis_reversed: false
-    y_axis_reversed: false
-    plot_size_by_field: false
-    trellis: ''
-    stacking: ''
-    legend_position: center
-    point_style: none
-    show_value_labels: false
-    label_density: 25
-    x_axis_scale: auto
-    y_axis_combined: true
-    show_null_points: true
-    interpolation: linear
-    hidden_pivots: {}
-    defaults_version: 1
-    hidden_series: [qoh.total_avg_req_min_used, qoh.total_req_min_used, qoh.total_req,
-      qoh.total_used, qoh.total_inv, qoh.total_qoh_since_last_inv_change, qoh.avg_est_prior_month]
-    hidden_fields: [qoh.facility_name, qoh.dept_num, qoh.par_class_code, qoh.coid_fac_dept_par_id,
-      qoh.facility_item_desc]
-    listen:
-      Req Type: qoh.req_type
-    row: 31
-    col: 5
-    width: 11
-    height: 9
-  - name: " (Copy 2)"
-    type: text
-    title_text: " (Copy 2)"
-    subtitle_text: ''
-    body_text: '[{"type":"h1","children":[{"text":"Example - Sudden Jumps in Inv"}],"align":"center"},{"type":"ul","children":[{"type":"li","children":[{"type":"lic","children":[{"text":"QOH
-      follows total inv closely until the last 3 months — a sudden drop to 0 in Oct
-      23, then a sudden jump to 96 in Nov 23"}],"id":1703698421572}],"id":1703698400595},{"type":"li","children":[{"type":"lic","id":1703699114009,"children":[{"text":"Neither
-      of these jumps are suggested based on the req & used #s"}]}],"id":1703699114012}],"id":1703698400592}]'
-    rich_content_json: '{"format":"slate"}'
-    row: 31
-    col: 0
-    width: 5
-    height: 9
-  - name: " (Copy 3)"
-    type: text
-    title_text: " (Copy 3)"
-    subtitle_text: ''
-    body_text: '[{"type":"h1","children":[{"text":"Example - Req''s not Meeting Use"}],"align":"center"},{"type":"ul","children":[{"type":"li","children":[{"type":"lic","id":1703699114009,"children":[{"text":"In
-      July 21 there''s a sudden jump to 588 (not suggested in req or used) "}]}],"id":1703698400595},{"type":"li","children":[{"type":"lic","children":[{"text":"In
-      Aug 21 it''s back down to 252, again, not suggested in the data"}],"id":1703699248067}],"id":1703699248067},{"type":"li","children":[{"type":"lic","children":[{"text":"In
-      the year prior to Sept 23, there''s way more usage than req, suggesting a massive
-      shortage. In Sept 23, turns out there was not a shortage"}],"id":1703699275862}],"id":1703699275862}],"id":1703698400592}]'
-    rich_content_json: '{"format":"slate"}'
-    row: 40
-    col: 0
-    width: 5
-    height: 9
-  - title: Example
-    name: Example (2)
-    model: supply_chain_qoh
-    explore: qoh
-    type: looker_grid
-    fields: [qoh.reporting_month, qoh.coid_fac_dept_par_id, qoh.coid, qoh.facility_item_desc_short,
-      qoh.facility_item_desc, qoh.facility_name, qoh.dept_num, qoh.par_class_code,
-      qoh.total_req, qoh.total_used, qoh.total_req_min_used, qoh.total_inv, qoh.total_qoh_since_last_inv_change,
-      qoh.total_est_prior_month, qoh.avg_error, qoh.perc_error]
-    filters:
-      qoh.coid_fac_dept_par_id: '60671'
-    sorts: [qoh.reporting_month]
-    limit: 500
-    column_limit: 50
-    show_view_names: false
-    show_row_numbers: true
-    transpose: false
-    truncate_text: true
-    hide_totals: false
-    hide_row_totals: false
-    size_to_fit: true
-    table_theme: white
-    limit_displayed_rows: false
-    enable_conditional_formatting: true
-    header_text_alignment: left
-    header_font_size: '12'
-    rows_font_size: '12'
-    conditional_formatting_include_totals: false
-    conditional_formatting_include_nulls: false
-    show_sql_query_menu_options: false
-    show_totals: true
-    show_row_totals: true
-    truncate_header: false
-    minimum_column_width: 75
-    series_cell_visualizations:
-      qoh.total_req:
-        is_active: false
-    conditional_formatting: [{type: along a scale..., value: !!null '', background_color: "#4285F4",
-        font_color: !!null '', color_application: {collection_id: google, custom: {
-            id: 698f98c0-bf1e-f7de-a6d8-46e015235219, label: Custom, type: continuous,
-            stops: [{color: "#B31412", offset: 0}, {color: yellow, offset: 25}, {
-                color: green, offset: 50}, {color: yellow, offset: 75}, {color: "#B31412",
-                offset: 100}]}, options: {steps: 5, constraints: {min: {type: number,
-                value: -0.5}, mid: {type: number, value: 0}, max: {type: number, value: 0.5}},
-            mirror: false, reverse: false, stepped: false}}, bold: false, italic: false,
-        strikethrough: false, fields: [qoh.perc_error]}, {type: along a scale...,
-        value: !!null '', background_color: "#4285F4", font_color: !!null '', color_application: {
-          collection_id: google, palette_id: google-diverging-0, options: {constraints: {
-              min: {type: minimum}, mid: {type: number, value: 0}, max: {type: maximum}},
-            mirror: true, reverse: false, stepped: false}}, bold: false, italic: false,
-        strikethrough: false, fields: [qoh.total_req_min_used, qoh.total_req, qoh.total_used]},
-      {type: along a scale..., value: !!null '', background_color: "#4285F4", font_color: !!null '',
-        color_application: {collection_id: google, custom: {id: 626e7d54-6eb5-b33f-8204-e31d73157d3f,
-            label: Custom, type: continuous, stops: [{color: "#ffffff", offset: 0},
-              {color: purple, offset: 100}]}, options: {steps: 5, constraints: {min: {
-                type: minimum}, mid: {type: number, value: 0}, max: {type: maximum}},
-            mirror: true, reverse: false, stepped: false}}, bold: false, italic: false,
-        strikethrough: false, fields: [qoh.total_inv, qoh.total_qoh_since_last_inv_change]}]
-    x_axis_gridlines: false
-    y_axis_gridlines: true
-    show_y_axis_labels: true
-    show_y_axis_ticks: true
-    y_axis_tick_density: default
-    y_axis_tick_density_custom: 5
-    show_x_axis_label: true
-    show_x_axis_ticks: true
-    y_axis_scale_mode: linear
-    x_axis_reversed: false
-    y_axis_reversed: false
-    plot_size_by_field: false
-    trellis: ''
-    stacking: ''
-    legend_position: center
-    point_style: none
-    show_value_labels: false
-    label_density: 25
-    x_axis_scale: auto
-    y_axis_combined: true
-    show_null_points: true
-    interpolation: linear
-    hidden_pivots: {}
-    defaults_version: 1
-    hidden_series: [qoh.total_avg_req_min_used, qoh.total_req_min_used, qoh.total_req,
-      qoh.total_used, qoh.total_inv, qoh.total_qoh_since_last_inv_change, qoh.avg_est_prior_month]
-    hidden_fields: [qoh.facility_name, qoh.dept_num, qoh.par_class_code, qoh.coid_fac_dept_par_id,
-      qoh.facility_item_desc]
-    listen:
-      Req Type: qoh.req_type
-    row: 40
-    col: 5
-    width: 11
-    height: 9
   - name: " (Copy 4)"
     type: text
     title_text: " (Copy 4)"
@@ -380,16 +169,16 @@
     width: 5
     height: 9
   - title: Example
-    name: Example (3)
+    name: Example
     model: supply_chain_qoh
     explore: qoh
     type: looker_grid
-    fields: [qoh.reporting_month, qoh.coid_fac_dept_par_id, qoh.coid, qoh.facility_item_desc_short,
-      qoh.facility_item_desc, qoh.facility_name, qoh.dept_num, qoh.par_class_code,
-      qoh.total_req, qoh.total_used, qoh.total_req_min_used, qoh.total_inv, qoh.total_qoh_since_last_inv_change,
-      qoh.total_est_prior_month, qoh.avg_error, qoh.perc_error]
+    fields: [qoh.reporting_month, qoh.coid, qoh.facility_item_desc_short, qoh.facility_item_desc,
+      qoh.facility_name, qoh.total_req, qoh.total_used, qoh.total_req_min_used, qoh.total_inv,
+      qoh.total_qoh_since_last_inv_change, qoh.total_est_prior_month, qoh.avg_error,
+      qoh.perc_error]
     filters:
-      qoh.coid_fac_dept_par_id: '25869'
+      qoh.coid_fac_item_id: '183540'
     sorts: [qoh.reporting_month]
     limit: 500
     column_limit: 50
@@ -488,17 +277,16 @@
     width: 5
     height: 9
   - title: Example
-    name: Example (4)
+    name: Example (2)
     model: supply_chain_qoh
     explore: qoh
     type: looker_line
-    fields: [qoh.reporting_month, qoh.coid_fac_dept_par_id, qoh.coid, qoh.facility_item_desc_short,
-      qoh.facility_item_desc, qoh.facility_name, qoh.dept_num, qoh.par_class_code,
-      qoh.total_req, qoh.total_used, qoh.total_req_min_used, qoh.total_inv, qoh.total_qoh_since_last_inv_change,
-      qoh.total_inv_actual, qoh.total_est_prior_month, qoh.avg_error, qoh.avg_abs_error,
-      qoh.perc_error]
+    fields: [qoh.reporting_month, qoh.coid, qoh.facility_item_desc_short, qoh.facility_item_desc,
+      qoh.facility_name, qoh.total_req, qoh.total_used, qoh.total_req_min_used, qoh.total_inv,
+      qoh.total_qoh_since_last_inv_change, qoh.total_inv_actual, qoh.total_est_prior_month,
+      qoh.avg_error, qoh.avg_abs_error, qoh.perc_error]
     filters:
-      qoh.coid_fac_dept_par_id: '12232'
+      qoh.coid_fac_item_id: '81875'
     sorts: [qoh.reporting_month]
     limit: 500
     column_limit: 50
@@ -582,16 +370,16 @@
     width: 8
     height: 9
   - title: Example
-    name: Example (5)
+    name: Example (3)
     model: supply_chain_qoh
     explore: qoh
     type: looker_grid
-    fields: [qoh.reporting_month, qoh.coid_fac_dept_par_id, qoh.coid, qoh.facility_item_desc_short,
-      qoh.facility_item_desc, qoh.facility_name, qoh.dept_num, qoh.par_class_code,
-      qoh.total_req, qoh.total_used, qoh.total_req_min_used, qoh.total_inv, qoh.total_qoh_since_last_inv_change,
-      qoh.total_est_prior_month, qoh.avg_error, qoh.perc_error]
+    fields: [qoh.reporting_month, qoh.coid, qoh.facility_item_desc_short, qoh.facility_item_desc,
+      qoh.facility_name, qoh.total_req, qoh.total_used, qoh.total_req_min_used, qoh.total_inv,
+      qoh.total_qoh_since_last_inv_change, qoh.total_est_prior_month, qoh.avg_error,
+      qoh.perc_error]
     filters:
-      qoh.coid_fac_dept_par_id: '12232'
+      qoh.coid_fac_item_id: '81875'
     sorts: [qoh.reporting_month]
     limit: 500
     column_limit: 50
@@ -674,17 +462,16 @@
     width: 11
     height: 9
   - title: Example
-    name: Example (6)
+    name: Example (4)
     model: supply_chain_qoh
     explore: qoh
     type: looker_line
-    fields: [qoh.reporting_month, qoh.coid_fac_dept_par_id, qoh.coid, qoh.facility_item_desc_short,
-      qoh.facility_item_desc, qoh.facility_name, qoh.dept_num, qoh.par_class_code,
-      qoh.total_req, qoh.total_used, qoh.total_req_min_used, qoh.total_inv, qoh.total_qoh_since_last_inv_change,
-      qoh.total_inv_actual, qoh.total_est_prior_month, qoh.avg_error, qoh.avg_abs_error,
-      qoh.perc_error]
+    fields: [qoh.reporting_month, qoh.coid, qoh.facility_item_desc_short, qoh.facility_item_desc,
+      qoh.facility_name, qoh.total_req, qoh.total_used, qoh.total_req_min_used, qoh.total_inv,
+      qoh.total_qoh_since_last_inv_change, qoh.total_inv_actual, qoh.total_est_prior_month,
+      qoh.avg_error, qoh.avg_abs_error, qoh.perc_error]
     filters:
-      qoh.coid_fac_dept_par_id: '25869'
+      qoh.coid_fac_item_id: '183540'
     sorts: [qoh.reporting_month]
     limit: 500
     column_limit: 50
@@ -767,194 +554,6 @@
     col: 16
     width: 8
     height: 9
-  - title: Example
-    name: Example (7)
-    model: supply_chain_qoh
-    explore: qoh
-    type: looker_line
-    fields: [qoh.reporting_month, qoh.coid_fac_dept_par_id, qoh.coid, qoh.facility_item_desc_short,
-      qoh.facility_item_desc, qoh.facility_name, qoh.dept_num, qoh.par_class_code,
-      qoh.total_req, qoh.total_used, qoh.total_req_min_used, qoh.total_inv, qoh.total_qoh_since_last_inv_change,
-      qoh.total_inv_actual, qoh.total_est_prior_month, qoh.avg_error, qoh.avg_abs_error,
-      qoh.perc_error]
-    filters:
-      qoh.coid_fac_dept_par_id: '1239'
-    sorts: [qoh.reporting_month]
-    limit: 500
-    column_limit: 50
-    x_axis_gridlines: false
-    y_axis_gridlines: true
-    show_view_names: false
-    show_y_axis_labels: true
-    show_y_axis_ticks: true
-    y_axis_tick_density: default
-    y_axis_tick_density_custom: 5
-    show_x_axis_label: true
-    show_x_axis_ticks: true
-    y_axis_scale_mode: linear
-    x_axis_reversed: false
-    y_axis_reversed: false
-    plot_size_by_field: false
-    trellis: ''
-    stacking: ''
-    limit_displayed_rows: false
-    legend_position: center
-    point_style: none
-    show_value_labels: false
-    label_density: 25
-    x_axis_scale: auto
-    y_axis_combined: true
-    show_null_points: true
-    interpolation: linear
-    show_row_numbers: true
-    transpose: false
-    truncate_text: true
-    hide_totals: false
-    hide_row_totals: false
-    size_to_fit: true
-    table_theme: white
-    enable_conditional_formatting: true
-    header_text_alignment: left
-    header_font_size: '12'
-    rows_font_size: '12'
-    conditional_formatting_include_totals: false
-    conditional_formatting_include_nulls: false
-    show_sql_query_menu_options: false
-    show_totals: true
-    show_row_totals: true
-    truncate_header: false
-    minimum_column_width: 75
-    series_cell_visualizations:
-      qoh.total_req:
-        is_active: false
-    conditional_formatting: [{type: along a scale..., value: !!null '', background_color: "#4285F4",
-        font_color: !!null '', color_application: {collection_id: google, custom: {
-            id: 698f98c0-bf1e-f7de-a6d8-46e015235219, label: Custom, type: continuous,
-            stops: [{color: "#B31412", offset: 0}, {color: yellow, offset: 25}, {
-                color: green, offset: 50}, {color: yellow, offset: 75}, {color: "#B31412",
-                offset: 100}]}, options: {steps: 5, constraints: {min: {type: number,
-                value: -0.5}, mid: {type: number, value: 0}, max: {type: number, value: 0.5}},
-            mirror: false, reverse: false, stepped: false}}, bold: false, italic: false,
-        strikethrough: false, fields: [qoh.perc_error]}, {type: along a scale...,
-        value: !!null '', background_color: "#4285F4", font_color: !!null '', color_application: {
-          collection_id: google, palette_id: google-diverging-0, options: {constraints: {
-              min: {type: minimum}, mid: {type: number, value: 0}, max: {type: maximum}},
-            mirror: true, reverse: false, stepped: false}}, bold: false, italic: false,
-        strikethrough: false, fields: [qoh.total_req_min_used, qoh.total_req, qoh.total_used]},
-      {type: along a scale..., value: !!null '', background_color: "#4285F4", font_color: !!null '',
-        color_application: {collection_id: google, custom: {id: 626e7d54-6eb5-b33f-8204-e31d73157d3f,
-            label: Custom, type: continuous, stops: [{color: "#ffffff", offset: 0},
-              {color: purple, offset: 100}]}, options: {steps: 5, constraints: {min: {
-                type: minimum}, mid: {type: number, value: 0}, max: {type: maximum}},
-            mirror: true, reverse: false, stepped: false}}, bold: false, italic: false,
-        strikethrough: false, fields: [qoh.total_inv, qoh.total_qoh_since_last_inv_change]}]
-    hidden_pivots: {}
-    defaults_version: 1
-    hidden_series: [qoh.total_avg_req_min_used, qoh.total_req_min_used, qoh.total_req,
-      qoh.total_used, qoh.avg_est_prior_month, qoh.avg_error, qoh.avg_abs_error, qoh.perc_error,
-      qoh.total_inv_actual, qoh.total_est_prior_month]
-    hidden_fields: [qoh.facility_name, qoh.dept_num, qoh.par_class_code, qoh.coid_fac_dept_par_id,
-      qoh.facility_item_desc, qoh.facility_item_desc_short, qoh.coid]
-    listen:
-      Req Type: qoh.req_type
-    row: 31
-    col: 16
-    width: 8
-    height: 9
-  - title: Example
-    name: Example (8)
-    model: supply_chain_qoh
-    explore: qoh
-    type: looker_line
-    fields: [qoh.reporting_month, qoh.coid_fac_dept_par_id, qoh.coid, qoh.facility_item_desc_short,
-      qoh.facility_item_desc, qoh.facility_name, qoh.dept_num, qoh.par_class_code,
-      qoh.total_req, qoh.total_used, qoh.total_req_min_used, qoh.total_inv, qoh.total_qoh_since_last_inv_change,
-      qoh.total_inv_actual, qoh.total_est_prior_month, qoh.avg_error, qoh.avg_abs_error,
-      qoh.perc_error]
-    filters:
-      qoh.coid_fac_dept_par_id: '60671'
-    sorts: [qoh.reporting_month]
-    limit: 500
-    column_limit: 50
-    x_axis_gridlines: false
-    y_axis_gridlines: true
-    show_view_names: false
-    show_y_axis_labels: true
-    show_y_axis_ticks: true
-    y_axis_tick_density: default
-    y_axis_tick_density_custom: 5
-    show_x_axis_label: true
-    show_x_axis_ticks: true
-    y_axis_scale_mode: linear
-    x_axis_reversed: false
-    y_axis_reversed: false
-    plot_size_by_field: false
-    trellis: ''
-    stacking: ''
-    limit_displayed_rows: false
-    legend_position: center
-    point_style: none
-    show_value_labels: false
-    label_density: 25
-    x_axis_scale: auto
-    y_axis_combined: true
-    show_null_points: true
-    interpolation: linear
-    show_row_numbers: true
-    transpose: false
-    truncate_text: true
-    hide_totals: false
-    hide_row_totals: false
-    size_to_fit: true
-    table_theme: white
-    enable_conditional_formatting: true
-    header_text_alignment: left
-    header_font_size: '12'
-    rows_font_size: '12'
-    conditional_formatting_include_totals: false
-    conditional_formatting_include_nulls: false
-    show_sql_query_menu_options: false
-    show_totals: true
-    show_row_totals: true
-    truncate_header: false
-    minimum_column_width: 75
-    series_cell_visualizations:
-      qoh.total_req:
-        is_active: false
-    conditional_formatting: [{type: along a scale..., value: !!null '', background_color: "#4285F4",
-        font_color: !!null '', color_application: {collection_id: google, custom: {
-            id: 698f98c0-bf1e-f7de-a6d8-46e015235219, label: Custom, type: continuous,
-            stops: [{color: "#B31412", offset: 0}, {color: yellow, offset: 25}, {
-                color: green, offset: 50}, {color: yellow, offset: 75}, {color: "#B31412",
-                offset: 100}]}, options: {steps: 5, constraints: {min: {type: number,
-                value: -0.5}, mid: {type: number, value: 0}, max: {type: number, value: 0.5}},
-            mirror: false, reverse: false, stepped: false}}, bold: false, italic: false,
-        strikethrough: false, fields: [qoh.perc_error]}, {type: along a scale...,
-        value: !!null '', background_color: "#4285F4", font_color: !!null '', color_application: {
-          collection_id: google, palette_id: google-diverging-0, options: {constraints: {
-              min: {type: minimum}, mid: {type: number, value: 0}, max: {type: maximum}},
-            mirror: true, reverse: false, stepped: false}}, bold: false, italic: false,
-        strikethrough: false, fields: [qoh.total_req_min_used, qoh.total_req, qoh.total_used]},
-      {type: along a scale..., value: !!null '', background_color: "#4285F4", font_color: !!null '',
-        color_application: {collection_id: google, custom: {id: 626e7d54-6eb5-b33f-8204-e31d73157d3f,
-            label: Custom, type: continuous, stops: [{color: "#ffffff", offset: 0},
-              {color: purple, offset: 100}]}, options: {steps: 5, constraints: {min: {
-                type: minimum}, mid: {type: number, value: 0}, max: {type: maximum}},
-            mirror: true, reverse: false, stepped: false}}, bold: false, italic: false,
-        strikethrough: false, fields: [qoh.total_inv, qoh.total_qoh_since_last_inv_change]}]
-    hidden_pivots: {}
-    defaults_version: 1
-    hidden_series: [qoh.total_avg_req_min_used, qoh.total_req_min_used, qoh.total_req,
-      qoh.total_used, qoh.avg_est_prior_month, qoh.avg_error, qoh.avg_abs_error, qoh.perc_error,
-      qoh.total_inv_actual, qoh.total_est_prior_month]
-    hidden_fields: [qoh.facility_name, qoh.dept_num, qoh.par_class_code, qoh.coid_fac_dept_par_id,
-      qoh.facility_item_desc, qoh.coid, qoh.facility_item_desc_short]
-    listen:
-      Req Type: qoh.req_type
-    row: 40
-    col: 16
-    width: 8
-    height: 9
   - name: " (Copy 6)"
     type: text
     title_text: " (Copy 6)"
@@ -970,7 +569,7 @@
       investigation needs to be done to make more items have error rates within that
       threshold "}],"id":1703797907455}],"id":1703797907455}],"id":1703698400592}]'
     rich_content_json: '{"format":"slate"}'
-    row: 49
+    row: 31
     col: 0
     width: 24
     height: 3
@@ -980,9 +579,10 @@
     explore: qoh
     type: looker_grid
     fields: [qoh.coid, qoh.facility_name, qoh.facility_item_num, qoh.facility_item_desc,
-      qoh.dept_num, qoh.par_class_code, qoh.total_avg_since_last_inv_change]
+      qoh.total_avg_since_last_inv_change]
     filters:
       qoh.reporting_month: 2023-12
+      qoh.total_avg_since_last_inv_change: "<100000"
     sorts: [qoh.total_avg_since_last_inv_change desc 0]
     limit: 50
     column_limit: 50
@@ -1018,7 +618,7 @@
     listen:
       Req Type: qoh.req_type
       Has Item been Accurate in the Past? (Yes / No): item_filter.is_item_not_null
-    row: 52
+    row: 34
     col: 0
     width: 12
     height: 11
@@ -1070,7 +670,7 @@
     listen:
       Req Type: qoh.req_type
       Has Item been Accurate in the Past? (Yes / No): item_filter.is_item_not_null
-    row: 52
+    row: 34
     col: 12
     width: 12
     height: 11
