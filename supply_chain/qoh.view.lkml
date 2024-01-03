@@ -247,6 +247,19 @@ view: qoh {
     drill_fields: [facility_name]
   }
 
+  measure: count_item {
+    type: count_distinct
+    sql: ${facility_item_num} ;;
+    drill_fields: [facility_name]
+  }
+
+  measure: count_coid_item {
+    type: count_distinct
+    sql: ${coid_fac_item_id} ;;
+    drill_fields: [facility_name]
+  }
+
+
   measure: total_req {
     label: "1a Total Req"
     type: sum
@@ -380,6 +393,13 @@ view: qoh {
     label: "8d Avg % Error (Abs)"
     type: number
     sql: abs(${perc_error}) ;;
+    value_format_name: percent_1
+  }
+
+  measure: abs_perc_error {
+    label: "8e Abs Error Avg"
+    type: number
+    sql: ${avg_abs_error} / nullif(${avg_inventory},0) ;;
     value_format_name: percent_1
   }
 }

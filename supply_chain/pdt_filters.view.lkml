@@ -1,7 +1,8 @@
 view: item_filter {
   derived_table: {
     explore_source: qoh {
-      column: facility_item_num {}
+      # column: facility_item_num {}
+      column: coid_fac_item_id {}
       column: perc_error_abs {}
       filters: {
         field: qoh.req_type
@@ -12,12 +13,14 @@ view: item_filter {
         value: "before 2023/12/01"
       }
       filters: {
-        field: qoh.perc_error_abs
-        value: "<0.25"
+        # field: qoh.perc_error_abs
+        field: qoh.abs_perc_error
+        value: "<0.75"
       }
     }
   }
-  dimension: facility_item_num {
+  # dimension: facility_item_num {
+  dimension: coid_fac_item_id {
     hidden: yes
     type: number
   }
@@ -30,7 +33,8 @@ view: item_filter {
     view_label: "*PDT Filter"
     label: "Has Item been Accurate in the Past?"
     type: yesno
-    sql: ${facility_item_num} is not null ;;
+    # sql: ${facility_item_num} is not null ;;
+    sql: ${coid_fac_item_id} is not null ;;
   }
 }
 

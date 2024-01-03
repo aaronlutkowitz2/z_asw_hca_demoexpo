@@ -17,6 +17,6 @@ explore: qoh {
 
   join: item_filter {
     relationship: many_to_one
-    sql_on: ${qoh.facility_item_num} = ${item_filter.facility_item_num} ;;
+    sql_on: ${qoh.coid_fac_item_id} = ${item_filter.coid_fac_item_id} ;;
   }
 }
