@@ -10,7 +10,7 @@ explore: qoh {
     view_label: "Qoh"
     relationship: one_to_one
     sql_on:
-          ${qoh.coid_fac_dept_par_id} = ${qoh_vs_actual.coid_fac_dept_par_id}
+          ${qoh.coid_fac_item_id} = ${qoh_vs_actual.coid_fac_item_id}
       AND ${qoh.reporting_raw} = ${qoh_vs_actual.month_raw}
     ;;
   }

@@ -7,17 +7,17 @@ view: qoh {
 
 #### Info
 
-  dimension: avg_lium_price {
-    group_label: "Info"
-    type: number
-    sql: ${TABLE}.avg_lium_price ;;
-  }
+  # dimension: avg_lium_price {
+  #   group_label: "Info"
+  #   type: number
+  #   sql: ${TABLE}.avg_lium_price ;;
+  # }
 
-  dimension: facility_item_alt_num {
-    group_label: "Info"
-    type: number
-    sql: ${TABLE}.facility_item_alt_num ;;
-  }
+  # dimension: facility_item_alt_num {
+  #   group_label: "Info"
+  #   type: number
+  #   sql: ${TABLE}.facility_item_alt_num ;;
+  # }
 
   dimension: facility_item_desc {
     group_label: "Info"
@@ -31,41 +31,41 @@ view: qoh {
     sql: ${TABLE}.facility_name ;;
   }
 
-  dimension: max_lium_price {
-    group_label: "Info"
-    type: number
-    sql: ${TABLE}.max_lium_price ;;
-  }
+  # dimension: max_lium_price {
+  #   group_label: "Info"
+  #   type: number
+  #   sql: ${TABLE}.max_lium_price ;;
+  # }
 
-  dimension: min_lium_price {
-    group_label: "Info"
-    type: number
-    sql: ${TABLE}.min_lium_price ;;
-  }
+  # dimension: min_lium_price {
+  #   group_label: "Info"
+  #   type: number
+  #   sql: ${TABLE}.min_lium_price ;;
+  # }
 
-  dimension: par_max {
-    group_label: "Info"
-    type: number
-    sql: ${TABLE}.par_max ;;
-  }
+  # dimension: par_max {
+  #   group_label: "Info"
+  #   type: number
+  #   sql: ${TABLE}.par_max ;;
+  # }
 
-  dimension: par_min {
-    group_label: "Info"
-    type: number
-    sql: ${TABLE}.par_min ;;
-  }
+  # dimension: par_min {
+  #   group_label: "Info"
+  #   type: number
+  #   sql: ${TABLE}.par_min ;;
+  # }
 
-  dimension: standard_item_alt_num {
-    group_label: "Info"
-    type: number
-    sql: ${TABLE}.standard_item_alt_num ;;
-  }
+  # dimension: standard_item_alt_num {
+  #   group_label: "Info"
+  #   type: number
+  #   sql: ${TABLE}.standard_item_alt_num ;;
+  # }
 
-  dimension: standard_item_num {
-    group_label: "Info"
-    type: number
-    sql: ${TABLE}.standard_item_num ;;
-  }
+  # dimension: standard_item_num {
+  #   group_label: "Info"
+  #   type: number
+  #   sql: ${TABLE}.standard_item_num ;;
+  # }
 
 #### ID
 
@@ -76,17 +76,17 @@ view: qoh {
     sql: ${TABLE}.coid ;;
   }
 
-  dimension: coid_fac_dept_par_id {
+  dimension: coid_fac_item_id {
     group_label: "IDs"
     type: number
-    sql: ${TABLE}.coid_fac_dept_par_id ;;
+    sql: ${TABLE}.coid_fac_item_id ;;
   }
 
-  dimension: dept_num {
-    group_label: "IDs"
-    type: number
-    sql: ${TABLE}.Dept_Num ;;
-  }
+  # dimension: dept_num {
+  #   group_label: "IDs"
+  #   type: number
+  #   sql: ${TABLE}.Dept_Num ;;
+  # }
 
   dimension: facility_item_num {
     group_label: "IDs"
@@ -94,11 +94,11 @@ view: qoh {
     sql: ${TABLE}.facility_item_num ;;
   }
 
-  dimension: par_class_code {
-    group_label: "IDs"
-    type: string
-    sql: ${TABLE}.PAR_Class_Code ;;
-  }
+  # dimension: par_class_code {
+  #   group_label: "IDs"
+  #   type: string
+  #   sql: ${TABLE}.PAR_Class_Code ;;
+  # }
 
 #### QOH Estimates
 
@@ -324,13 +324,13 @@ view: qoh {
   measure: total_inv_actual {
     label: "6a Total Known Inv (Actual)"
     type: sum
-    sql: case when ${qoh_vs_actual.coid_fac_dept_par_id} is null then null else ${reported_inv} end ;;
+    sql: case when ${qoh_vs_actual.coid_fac_item_id} is null then null else ${reported_inv} end ;;
   }
 
   measure: total_avg_inv_actual {
     label: "6b Avg Known Inv (Actual)"
     type: average
-    sql: case when ${qoh_vs_actual.coid_fac_dept_par_id} is null then null else ${reported_inv} end ;;
+    sql: case when ${qoh_vs_actual.coid_fac_item_id} is null then null else ${reported_inv} end ;;
     value_format_name: decimal_1
   }
 

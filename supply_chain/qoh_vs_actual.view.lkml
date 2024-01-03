@@ -6,10 +6,10 @@ view: qoh_vs_actual {
 ### Original Dimensions
 #######################
 
-  dimension: coid_fac_dept_par_id {
+  dimension: coid_fac_item_id {
     hidden: yes
     type: number
-    sql: ${TABLE}.coid_fac_dept_par_id ;;
+    sql: ${TABLE}.coid_fac_item_id ;;
   }
 
   dimension_group: month {
@@ -52,7 +52,7 @@ view: qoh_vs_actual {
 
   measure: count_inv_changes {
     type: count
-    filters: [coid_fac_dept_par_id: "not null"]
+    filters: [coid_fac_item_id: "not null"]
   }
 }
 
